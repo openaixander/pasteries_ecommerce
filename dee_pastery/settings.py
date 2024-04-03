@@ -33,7 +33,7 @@ SECRET_KEY ='django-insecure-)vq*&$7gb89%c19d9ne9mzfvc16-=4hgn$@+70o4$(r1o0!jn#'
 DEBUG = False
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['shishicakes.onrender.com', 'localhost']
 
 
 # Application definition
@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'orders',
     # 'main',
     # admin panel
-    # 'jazzmin',
+    'jazzmin',
     # 'cloudinary',
     # 'paystack',
     'django.contrib.admin',
