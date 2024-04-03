@@ -109,14 +109,14 @@ WSGI_APPLICATION = 'dee_pastery.wsgi.application'
 # }
 
 # Replace the SQLite DATABASES configuration with PostgreSQL:
+# Replace the SQLite DATABASES configuration with PostgreSQL:
 DATABASES = {
-    # 'default': dj_database_url.config(
-    #     # Replace this value with your local database's connection string.
-    #     default='postgres://shishicakes_db_user:DkWTrU1tmYQpqMorg0YbdRSFGvMz43fC@dpg-co68lj21hbls73b6kv50-a.oregon-postgres.render.com/shishicakes_db',
-    #     conn_max_age=600
-    # )
+    'default': dj_database_url.config(
+        # Replace this value with your local database's connection string.
+        default='postgresql://postgres:postgres@localhost:8000/dee_pastery',
+        conn_max_age=600
+    )
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
