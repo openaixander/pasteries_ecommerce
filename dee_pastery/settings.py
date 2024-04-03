@@ -30,7 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY ='django-insecure-)vq*&$7gb89%c19d9ne9mzfvc16-=4hgn$@+70o4$(r1o0!jn#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
 ALLOWED_HOSTS = []
@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'orders',
     # 'main',
     # admin panel
-    'jazzmin',
+    # 'jazzmin',
     # 'cloudinary',
     # 'paystack',
     'django.contrib.admin',
@@ -110,11 +110,11 @@ WSGI_APPLICATION = 'dee_pastery.wsgi.application'
 
 # Replace the SQLite DATABASES configuration with PostgreSQL:
 DATABASES = {
-    'default': dj_database_url.config(
-        # Replace this value with your local database's connection string.
-        default='postgresql://postgres:postgres@localhost:8000/dee_pastery',
-        conn_max_age=600
-    )
+    # 'default': dj_database_url.config(
+    #     # Replace this value with your local database's connection string.
+    #     default='postgres://shishicakes_db_user:DkWTrU1tmYQpqMorg0YbdRSFGvMz43fC@dpg-co68lj21hbls73b6kv50-a.oregon-postgres.render.com/shishicakes_db',
+    #     conn_max_age=600
+    # )
 }
 
 
@@ -170,6 +170,9 @@ if not DEBUG:
     # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
     # and renames the files with unique names for each version to support long-term caching
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+MEDIA_ROOT = BASE_DIR / 'media/images'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
