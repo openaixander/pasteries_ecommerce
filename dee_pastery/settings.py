@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'orders',
     # 'main',
     # admin panel
-    'jazzmin',
+    # 'jazzmin',
     # 'cloudinary',
     # 'paystack',
     'django.contrib.admin',
