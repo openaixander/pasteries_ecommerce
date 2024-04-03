@@ -1,0 +1,149 @@
+{% extends 'logo/base.html' %}
+
+{% block title %}
+    Shopping Cart - ShiShiCakes
+{% endblock title %}
+
+{% block css %}
+.cart-summary {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+@media (min-width: 768px) {
+    .cart-container {
+        display: flex;
+    }
+
+    .cart-items {
+        flex: 1;
+        margin-right: 20px;
+    }
+
+    .cart-summary {
+        flex: 0 0 300px;
+    }
+}
+/* Custom styles for shopping cart */
+        .quantity input {
+            width: 40px; /* Adjust width as needed */
+            text-align: center;
+        }
+        @media (min-width: 992px) {
+            .place-order-lg {
+                justify-content: flex-end;
+            }
+        }
+
+
+        @media (max-width: 1024px) {
+            .btn-lg-none {
+                height: 100%; /* Ensure button height matches */
+                margin-bottom: 10px; /* Add bottom margin */
+            }
+        }
+{% endblock css %}
+
+
+{% block content %}
+  
+   <!-- Main content -->
+<div class="container mt-4">
+    {% if cart_items %}
+    <h1>Shopping Cart</h1>
+    <div class="cart-container">
+        <!-- Cart Items -->
+        <aside class="cart-items">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Item Name</th>
+                            <th>Quantity</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Example item -->
+                        {% for cart_item in cart_items %}
+                        <tr>
+                            <td><img src="{{ cart_item.product.image.url }}" alt="{{ cart_item.product.product_name }}" class="img-fluid" style="max-width: 50px;"></td>
+                            <td><a class="text-decoration-none" href="{{cart_item.product.get_product_url}}">{{ cart_item.product.product_name }}</a></td>
+                            <td>
+                                <div class="quantity d-flex align-items-center">
+                                    <a href="{% url 'carts:remove_cart' cart_item.product.id  cart_item.id%}" class="btn btn-sm btn-danger">-</a>
+                                    <input type="text" readonly value="{{ cart_item.quantity }}" class="form-control px-2 mx-2">
+                                    <form method="POST" class="" action="{% url 'carts:add_cart' cart_item.product.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-sm btn-success">+</button>  
+                                    </form>
+                                </div>
+                            </td>
+                            <td><a href="{% url 'carts:remove_cart_item' cart_item.product.id cart_item.id %}" class="btn btn-danger remove-item">Remove</a></td>
+                        </tr>
+                        {% endfor %}
+                        <!-- Add more rows for other items -->
+                    </tbody>
+                </table>
+            </div>
+        </aside>
+        <!-- Cart Summary -->
+        <aside class="cart-summary mt-5 d-lg-flex flex-lg-column justify-content-lg-end">
+            <h4 class="fw-bold">Cart Summary</h4>
+            <p class="fw-bold">Total Items: <span id="total-items">{{ total_quantity }}</span></p>
+            <p class="fw-bold">Total Price: <span>₦</span>{{ total_price }}<span id="total-price"></span></p>
+            <!-- Checkout Button for Medium Screens -->
+            <a href="{% url 'carts:checkout' %}" class="btn btn-primary text-center py-2 mb-2 d-none d-md-block"></i>Checkout<i class="fas fa-arrow-right ms-2"></i></a>
+            <!-- For medium screens, display the button as a regular button -->
+
+            <!-- Checkout Button for Extra Small to Large Screens -->
+            <a href="{% url 'carts:checkout' %}" class="btn btn-primary text-center py-2 mb-2 d-block d-md-none">Checkout<i class="fas fa-arrow-right ms-2"></i></a>
+            <!-- For extra small to medium screens, display the button as a block element -->
+
+            <!-- Back to Store Button for Medium Screens -->
+            <a href="{% url 'store:store' %}" class="btn btn-secondary text-center py-2 mb-2 d-none d-md-block"><i class="fas fa-arrow-left me-2"></i>Back To Store</a>
+            <!-- For medium screens, display the button as a regular button -->
+
+            <!-- Back to Store Button for Extra Small to Large Screens -->
+            <a href="{% url 'store:store' %}" class="btn btn-secondary text-center py-2 mb-2 d-block d-md-none"><i class="fas fa-arrow-left me-2"></i>Back To Store</a>
+            <!-- For extra small to medium screens, display the button as a block element -->
+        </aside>
+        
+        
+    </div>
+    {% else %}
+    <div class="text-center my-5">
+        <h3 class="display-3">Your Shopping Cart Is Empty.</h3>
+        <a class="btn btn-lg mt-5 btn-primary" href="{% url 'store:store' %}">
+            <i class="fas fa-arrow-left me-2"></i>Back To Store
+        </a>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+    // Wait for the document to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get all elements with the 'remove-item' class
+        var removeButtons = document.querySelectorAll('.remove-item');
+
+        // Add event listener to each remove button
+        removeButtons.forEach(function(button) {
+            button.addEventListener('click', function(event) {
+                // Prevent the default link behavior (i.e., navigation)
+                event.preventDefault();
+                
+                // Display a confirmation dialog
+                var confirmRemove = confirm("Are you sure you want to remove this item from the cart?");
+                
+                // If the user confirms, navigate to the link's href
+                if (confirmRemove) {
+                    window.location.href = button.getAttribute('href');
+                }
+            });
+        });
+    });
+</script>
+{% endblock content %}

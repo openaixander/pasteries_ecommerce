@@ -1,0 +1,142 @@
+{% if is_product_detail %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <img src="{{ web_logo.web_logo.url }}" style="border-radius: 50%;" alt="Website Logo" width="40"
+                height="40">
+            <span style="font-size: smaller;" class="d-lg-inline">ShiShiCakes</span>
+        </a>
+        <ul class="navbar-nav ms-auto d-lg-flex">
+            {% if user.is_authenticated %}
+            <li class="nav-item d-none d-lg-block">
+                <small class="nav-link text-white">Welcome, {{ user.first_name }}!</small>
+            </li>
+            {% else %}
+            <li class="nav-item d-none d-lg-block">
+                <small class="nav-link text-muted text-white">Welcome, guest!</small>
+            </li>
+            {% endif %}
+            <li class="nav-item d-none d-lg-block">
+                <a class="text-decoration-none" href="{% url 'store:store' %}"><span class="nav-link text-white">Store</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'carts:cart' %}">
+                    <div class="icon-container">
+                        <i class="fas fa-shopping-cart fa-lg"></i>
+                        <span class="badge bg-danger notify">{{ cart_count }}</span>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+{% elif is_store_page %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <img src="{{ web_logo.web_logo.url }}" style="border-radius: 50%;" alt="Website Logo" width="40"
+                height="40">
+            <span style="font-size: smaller;" class="d-lg-inline">ShiShiCakes</span>
+        </a>
+        <!-- Search icon and form on store page for small screens -->
+        <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-search"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto d-lg-flex">
+                <li class="nav-item mx-sm-0 mx-0">
+                    <form action="{% url 'store:search_results' %}" method="GET"
+                        class="form-inline d-lg-flex my-2 my-lg-0">
+                        <div class="row align-items-center">
+                            <div class="col mx-lg-0">
+                                <input class="form-control px-4" type="search" name="keyword"
+                                    placeholder="Search products by name, category..." aria-label="Search" required>
+                            </div>
+                            <div class="col-auto">
+                                <button class="btn btn-success" type="submit">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% else %}
+<!-- Navbar rest of page -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <img src="{{ web_logo.web_logo.url }}" style="border-radius: 50%;" alt="Website Logo" width="40"
+                height="40">
+            <span style="font-size: smaller;" class="d-lg-inline">ShiShiCakes</span>
+        </a>
+        <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto d-lg-flex">
+                {% if user.is_authenticated %}
+                <li style="margin-top: 4px;" class="nav-item d-none d-lg-block">
+                    <small class="nav-link text-muted text-white">Welcome, {{ user.first_name }}!</small>
+                </li>
+                {% else %}
+                <li class="nav-item d-none d-lg-block">
+                    <small class="nav-link text-muted text-white">Welcome, guest!</small>
+                </li>
+                {% endif %}
+                {% if is_reg_page %}
+                    <li class="nav-item">
+                        <a class="nav-link active mb-sm-2" href="{% url 'accounts:login' %}">Login</a>
+                    </li>
+                    
+                {% else %}
+                {% if user.id is None %}
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'logo:about_us' %}">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'store:store' %}">Store</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'accounts:login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'carts:cart' %}">
+                        <div class="icon-container">
+                            <i class="fas fa-shopping-cart fa-lg"></i>
+                            <span class="badge bg-danger notify">{{ cart_count }}</span>
+                        </div>
+                    </a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'carts:dashboard' %}">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'logo:about_us' %}">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'store:store' %}">Store</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'accounts:logout' %}">Logout</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'carts:cart' %}">
+                        <div class="icon-container">
+                            <i class="fas fa-shopping-cart fa-lg"></i>
+                            <span class="badge bg-danger notify">{{ cart_count }}</span>
+                        </div>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+{% endif %}

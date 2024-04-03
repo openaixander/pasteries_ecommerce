@@ -1,0 +1,18 @@
+cart_items.aggregate(...):
+
+This is the aggregate() method applied to the queryset cart_items. It indicates that we're performing an aggregate operation on all objects in the queryset.
+total_price=Sum(...):
+
+Inside the aggregate() method, we're specifying the aggregate operation we want to perform. In this case, it's a Sum() operation.
+We're assigning an alias total_price to the result of this aggregate operation. This alias will be used to access the result later.
+ExpressionWrapper(F('product__price') * F('quantity'), output_field=FloatField()):
+
+This part defines the expression that will be summed up by the Sum() function.
+F('product__price') refers to the product__price field of each CartItem object.
+F('quantity') refers to the quantity field of each CartItem object.
+We use ExpressionWrapper to perform the multiplication operation (F('product__price') * F('quantity')).
+output_field=FloatField() specifies that the output of this expression should be treated as a floating-point number. This ensures that the result of the multiplication is a floating-point value, as expected for a total price calculation.
+['total_price'] or 0:
+
+This retrieves the result of the aggregate operation using the alias total_price.
+If the result is None (i.e., if there were no CartItem objects in the queryset), it defaults to 0 to avoid NoneType errors.

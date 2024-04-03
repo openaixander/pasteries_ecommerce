@@ -1,0 +1,135 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome CSS -->
+    <!-- Bootstrap 5.1.3 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700&display=swap">
+    <link rel="icon" type="image/png" href="{{ web_logo.web_logo.url }}">
+    {% block external %}    
+    <link rel="stylesheet" type="text/css" href="{% static 'logo/css/styles.css' %}">
+    {% endblock external %}
+    <title>
+        {% block title %}
+        ShiShiCakes.com
+        {% endblock title %}
+    </title>
+    <style>
+        {% block css %}
+        .icon-container {
+    position: relative;
+    display: inline-block;
+}
+
+.notify {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+}
+
+.owner-info {
+    margin-top: 20px;
+}
+
+.owner-info p {
+    font-size: 18px;
+}
+
+.owner-info img {
+    border: 5px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+/* .carousel-item { */
+        /* transition: opacity 1s ease; Adjust the duration for a slower transition */
+    /* } */
+.carousel-item img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.carousel-caption {
+    background: rgba(255, 255, 255, 0.7);
+    color: #000;
+    padding: 20px;
+    border-radius: 5px;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(1);
+}
+
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+}
+
+.description {
+    overflow: hidden;
+    transition: height 10s ease !important;
+}
+
+@media (max-width: 768px) {
+    .owner-info {
+        min-height: auto;
+    }
+
+    .carousel-inner {
+        margin-top: 10px;
+    }
+
+    .carousel-item img {
+        height: auto;
+    }
+}
+
+
+        {% endblock css %}
+    </style>
+</head>
+
+<body>
+    {% include 'logo/includes/navbar.html' %}
+    {% block content %}
+    {% endblock content %}
+    {% include 'logo/includes/footer.html' %}
+
+<!-- Bootstrap 5.1.3 Bundle with Popper -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+    integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"
+        integrity="sha512-oR0tLLiX+1e2UVKjDOXiYzHwPpM7Pu+0OyZ5S0+dPwQ4DS/6jTgE3nNsBuBhU8zT4C9/wWf49Dvfd5zP0cH1zQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $(document).ready(function () {
+            // Toggle search form
+            $('.search-icon').click(function () {
+                $('.search-form').slideToggle();
+            });
+        });
+    </script>
+    <script src="{% static 'logo/js/script.js' %}"></script>
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+</body>
+    
+
+</html>

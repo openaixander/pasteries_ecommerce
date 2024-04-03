@@ -1,0 +1,5 @@
+venv/
+requirement.txt
+*.sqlite3
+*.env
+

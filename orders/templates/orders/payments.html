@@ -1,0 +1,233 @@
+{% extends 'logo/base.html' %}
+
+{% block title %}
+    Payments - ShiShiCakes
+{% endblock title %}
+
+
+{% block css %}
+*{
+    font-family: 'Exo 2', sans-serif;
+    <!-- background-color: #f5f5f5; -->
+}
+.cart-summary {
+    background-color: #f8f9fa; /* Optional: Add a background color */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Add a box shadow for depth */
+}
+
+.cart-summary h4 {
+    margin-bottom: 20px; /* Optional: Adjust spacing */
+}
+
+.cart-summary p {
+    margin-bottom: 10px; /* Optional: Adjust spacing */
+}
+
+.cart-summary button {
+    border-radius: 8px;
+}
+
+.cart-summary button:hover {
+    background-color: #007bff; /* Optional: Change background color on hover */
+}
+
+{% endblock css %}
+
+
+{% block content %}
+  
+   <!-- Main content -->
+<div class="container mt-4">
+    <!-- <h1>Billing</h1> -->
+    <div class="cart-container d-lg-flex">
+        <!-- Cart Items -->
+        <aside class="cart-items me-5 col-lg-8">
+          <h4 class="display-5 text-center mb-4">Review Your Order And Make Payment</h4>
+                <div class="card mt-4">
+                    <div class="fw-bold card-header">
+                      Billing Address
+                    </div>
+                    <div class="card-body">
+                      <p class="card-text mb-0">{{ order.full_name }}</p>
+                      <p class="card-text mb-0">{{ order.full_address }}</p>
+                      <p class="card-text mb-0">{{ order.city }} ,{{ order.state }}</p>
+                      <p class="card-text mb-0">{{ order.city }}</p>
+                      {% if order.order_note %}
+                      <b>Order Note: {{ order.order_note }}</b>
+                      {% endif%}
+                      <p class="card-text mb-0">{{ order.email }}</p>
+                      <p class="card-text mb-0">{{ order.phone }}</p>
+
+                    </div>
+                  </div>
+                <div class="card mt-4">
+                    <div class="fw-bold card-header">
+                      Payment Method
+                    </div>
+                    <div class="card-body">
+                      <p class="card-text">Paystack</p>
+                    </div>
+                  </div>
+                <div class="card mt-4">
+                    <div class="fw-bold card-header">
+                      Review Products
+                    </div>
+                    <div class="card-body">
+                     <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Item Name</th>
+                            <th>Quantity</th>
+                            <!-- <th>Actions</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Example item -->
+                        {% for cart_item in cart_items %}
+                        <tr>
+                            <td><img src="{{ cart_item.product.image.url }}" alt="{{ cart_item.product.product_name }}" class="img-fluid" style="max-width: 50px;"></td>
+                            <td><a class="text-decoration-none" href="{{cart_item.product.get_product_url}}">{{ cart_item.product.product_name }}</a></td>
+                            <td>
+                                <div class="quantity d-flex align-items-center">
+                                    <!-- <a href="{% url 'carts:remove_cart' cart_item.product.id  cart_item.id%}" class="btn btn-sm btn-danger">-</a> -->
+                                    <input style="width: 50px; text-align: center;" type="text" readonly value="{{ cart_item.quantity }}" class="form-control px-2 mx-2">
+                                    <!-- <form method="POST" class="" action="{% url 'carts:add_cart' cart_item.product.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-sm btn-success">+</button>  
+                                    </form> -->
+                                </div>
+                            </td>
+                            <!-- <td><a href="{% url 'carts:remove_cart_item' cart_item.product.id cart_item.id %}" class="btn btn-danger remove-item">Remove</a></td> -->
+                        </tr>
+                        {% endfor %}
+                        <!-- Add more rows for other items -->
+                    </tbody>
+                </table>
+            </div>
+                    </div>
+                  </div>
+        </aside>
+        <!-- Cart Summary -->
+        <aside class="cart-summary col-lg-4 mt-4 justify-content-lg-end">
+          <h4 class="fw-bold">Cart Summary</h4>
+          <p class="fw-bold">Total Items: <span id="total-items">{{ total_quantity }}</span></p>
+          <p class="fw-bold">Total Price: <span>₦</span>{{ total_price }}<span id="total-price"></span></p>
+          <!-- Checkout Button for Medium Screens -->
+          <!-- <a href="{% url 'carts:checkout' %}" class="btn btn-primary text-center py-2 mb-2 d-none d-md-block">Make Payment</a> -->
+          <!-- For medium screens, display the button as a regular button -->
+          <form>
+              <button class="btn btn-warning text-white text-center py-2 mb-2 d-md-block w-100" type="button" onclick="makePayment()">Pay With PayStack Now</button>
+          </form>
+          <!-- Checkout Button for Extra Small to Large Screens -->
+          <!-- <a href="{% url 'carts:checkout' %}" class="btn btn-primary text-center py-2 mb-2 d-block d-md-none">Make Payment</a> -->
+          <!-- For extra small to medium screens, display the button as a block element -->
+      </aside>
+        
+    </div>
+</div>
+
+
+
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script>
+    // Wait for the document to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get all elements with the 'remove-item' class
+        var removeButtons = document.querySelectorAll('.remove-item');
+
+        // Add event listener to each remove button
+        removeButtons.forEach(function(button) {
+            button.addEventListener('click', function(event) {
+                // Prevent the default link behavior (i.e., navigation)
+                event.preventDefault();
+                
+                // Display a confirmation dialog
+                var confirmRemove = confirm("Are you sure you want to remove this item from the cart?");
+                
+                // If the user confirms, navigate to the link's href
+                if (confirmRemove) {
+                    window.location.href = button.getAttribute('href');
+                }
+            });
+        });
+    });
+</script>
+<script>
+  function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+  }
+  
+  const total_price = "{{ total_price }}";
+  var csrftoken = getCookie('csrftoken');
+  var url = "{% url 'orders:payments' %}";
+  var orderID = "{{ order.order_number }}";
+  var payment_method = 'Paystack';
+  var redirect_url = "{% url 'orders:order_complete' %}";
+  
+  function makePayment() {
+      var handler = PaystackPop.setup({
+          key: "pk_test_e77980dcd85f670b46e2e5baf1e72a7cf63c2ab1", //public key from your paystack
+          email: "{{order.email}}",
+          amount: parseFloat(total_price) * 100, // Convert to kobo
+          currency: "NGN",
+          callback: function(response) {
+              var details = {
+                  transID: response.trans,
+                  status: response.status
+              };
+  
+              function sendData() {
+                  fetch(url, {
+                      method: "POST",
+                      headers: {
+                          "Content-type": "application/json",
+                          "X-CSRFToken": csrftoken,
+                      },
+                      body: JSON.stringify({
+                          orderID: orderID,
+                          transID: details.transID,
+                          payment_method: payment_method,
+                          status: details.status,
+                      })
+                  })
+                  .then((response) => response.json())
+                  .then((data_items) => {
+                    window.location.href = redirect_url + '?order_number='+ data_items.order_number+'&payment_id='+data_items.transID; 
+
+                  })
+                  .then(response => {
+                      // Handle response if necessary
+                      console.log(response);
+                  }).catch(error => {
+                      // Handle error if necessary
+                      console.error('Error:', error);
+                  });
+              }
+  
+              sendData();
+          },
+          onClose: function() {
+              alert('window closed');
+          }
+      });
+      handler.openIframe();
+  }
+  </script>
+  
+
+{% endblock content %}

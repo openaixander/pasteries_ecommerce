@@ -1,0 +1,8 @@
+<div class="col-md-3 mb-sm-5 dashboard-navigation">
+    <div class="list-group">
+        <a href="{% url 'carts:dashboard' %}" class="list-group-item list-group-item-action {% if '/carts/dashboard/' == request.path %}active{% endif %}">Orders</a>
+        <!-- <a href="#" class="list-group-item list-group-item-action">Edit Profile</a> -->
+        <a href="{% url 'accounts:change_password' %}" class="list-group-item list-group-item-action {% if '/accounts/change_password/' == request.path %}active{% endif %}">Change Password</a>
+        <a href="{% url 'accounts:logout' %}" class="list-group-item list-group-item-action">Logout</a>
+    </div>
+</div>

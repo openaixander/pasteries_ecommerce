@@ -1,0 +1,133 @@
+{% extends 'logo/base.html' %}
+
+{% block title %}
+    Checkout - ShiShiCakes
+{% endblock title %}
+
+{% block external %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<!-- Font Awesome CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
+<!-- Custom CSS -->
+{% endblock external %}
+
+{% block css %}
+*{
+    font-family: 'Exo 2', sans-serif;
+    <!-- background-color: #f5f5f5; -->
+}
+
+
+/* Add your custom styles here */
+.form-container {
+    margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+    .row {
+        display: flex;
+    }
+
+    .left-column {
+        flex: 1;
+        margin-right: 20px;
+    }
+
+    .right-column {
+        flex: 1;
+    }
+
+    /* Ensure buttons don't take full width on larger screens */
+    .cart-summary a.btn {
+        width: auto;
+    }
+}
+{% endblock css %}
+
+{% block content %}
+
+<!-- Main content -->
+<div class="container-fluid mt-4">
+    <div class="row">
+        <!-- Billing Address -->
+        <div class="col-md-6 left-column">
+            <div class="mb-3 text-center">
+                <h1>Billing Address</h1>
+                <small>User Information</small>
+            </div>
+            <div class="form-container">
+                <form action="{% url 'orders:place_order' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="firstname">First Name<span style="color: rgb(189, 0, 0); padding: 2px;">*</span></label>
+                            <input name="first_name" type="text" class="form-control"  required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="lastname">Last Name<span style="color: rgb(189, 0, 0); padding: 2px;">*</span></label>
+                            <input type="text" name="last_name" class="form-control"  required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email<span style="color: rgb(189, 0, 0); padding: 2px;">*</span></label>
+                        <input type="email" name="email" class="form-control"  required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number<span style="color: rgb(189, 0, 0); padding: 2px;">*</span></label>
+                        <input type="tel" name="phone" class="form-control"  required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address1">Address Line 1<span style="color: rgb(189, 0, 0); padding: 2px;">*</span></label>
+                        <input type="text" name="address_line_1" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address2">Address Line 2</label>
+                        <input type="text" name="address_line_2" class="form-control" >
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="city">City<span style="color: rgb(189, 0, 0); padding: 2px;">*</span></label>
+                            <input type="text" name="city" class="form-control"  required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="state">State<span style="color: rgb(189, 0, 0); padding: 2px;">*</span></label>
+                            <input type="text" name="state" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="">Order Note</label>
+                            <textarea class="form-control" name="order_note" cols="60" ></textarea>
+                        </div>
+                    </div>
+                    <!-- Add other form fields as needed -->
+            </div>
+        </div>
+        <hr class="d-lg-none mt-5 py-3 text-dark">
+        
+        <!-- Cart Summary -->
+        <aside class="col-md-6 right-column">
+            <div class="cart-summary d-lg-flex flex-lg-column justify-content-lg-end">
+                <h4 style="margin-bottom: 50px;" class="fw-bold border-4 text-center d-block d-lg-none">Cart Summary</h4>
+                <h4 class="fw-bold  d-none d-lg-block">Cart Summary</h4>
+                <p class="fw-bold">Total Items: <span id="total-items">{{ total_quantity }}</span></p>
+                <p class="fw-bold">Total Price: <span>₦{{ total_price }}</span></p>
+                <button class="btn btn-lg-none btn-primary text-center py-2 mb-2 d-block d-lg-none w-100">Place Order</button>
+                <!-- For smaller screens, display the button as a block element to take full width -->
+                <button class="btn btn-lg-none btn-primary text-center py-2 mb-2 d-none d-lg-block">Place Order</button>
+                <!-- For larger screens, hide this button -->
+                <a href="{% url 'store:store' %}" class="py-2 mb-4 btn btn-secondary text-center d-block d-lg-none">Back To Store</a>
+                <!-- For smaller screens, display the button as a block element to take full width -->
+                <a href="{% url 'store:store' %}" class="py-2 btn btn-secondary text-center d-none d-lg-block">Back To Store</a>
+                <!-- For larger screens, hide this button -->
+            </div>
+        </aside>
+        </form>
+    </div>
+</div>
+
+<!-- Bootstrap and other scripts -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Your custom JavaScript -->
+{% endblock content %}

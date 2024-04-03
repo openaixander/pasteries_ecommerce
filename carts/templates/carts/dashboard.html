@@ -1,0 +1,111 @@
+{% extends 'logo/base.html' %}
+
+{% block title %}
+    Dashboard - ShiShiCakes
+{% endblock title %}
+
+{% block external %}
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
+    
+    <!-- Custom CSS -->
+{% endblock external %}
+
+
+{% block css %}
+*{
+    font-family: 'Exo 2', sans-serif;
+    <!-- background-color: #f5f5f5; -->
+}
+
+        /* Add your custom styles here */
+        .dashboard-container {
+            margin-top: 50px;
+        }
+
+        .dashboard-navigation {
+            background-color: #f8f9fa;
+            border-right: 1px solid #dee2e6;
+            min-height: 35vh;
+        }
+
+        .dashboard-content {
+            min-height: 100vh;
+        }
+
+        .dashboard-content .content {
+            padding: 20px;
+        }
+
+            /* Custom CSS for smaller screens */
+    @media (max-width: 768px) {
+        .dashboard-navigation {
+            padding-bottom: 0; /* Reduce padding between navigation links and content */
+        }
+    }
+{% endblock css %}
+
+
+{% block content %}
+    <!-- Main content -->
+   <!-- Main content -->
+<!-- Main content -->
+<div class="container-fluid">
+    {% include 'logo/includes/alerts.html' %}
+    <div class="row mt-5">
+        <!-- Dashboard navigation -->
+        {% include 'carts/includes/dashboard_sidebar.html' %}
+        <!-- Dashboard content -->
+        <div class="col-md-9 dashboard-content">
+            <div class="content">
+                <div class="mb-4">
+                    <p class="fw-bold text-end">Name: {{ request.user.first_name }} {{ request.user.last_name }}</p>
+                    <p class="fw-bold text-end">Username: {{ request.user.username }}</p>
+                    <p class="fw-bold text-end">Phone: {{ request.user.phone_number }}</p>
+                </div>
+                <h1>Orders</h1>
+                <!-- Your content for the active link goes here -->
+                <p>Welcome to your Orders section. Here you can view your recent orders.</p>
+                <!-- Recent Orders Table -->
+                <div class="card mt-4">
+                    <div class="card-header">
+                        Recent Orders
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Order Number</th>
+                                    <th>Total</th>
+                                    <!-- Add more table headings if needed -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Sample recent order item -->
+                                {% for order in orders %}
+                                <tr>
+                                    <td>{{ order.order_number }}</td>
+                                    <td>{{ order.order_total }}</td>
+                                    <!-- Add more table cells for additional order details if needed -->
+                                </tr>
+                                {% endfor %}
+                                
+                                {% if not orders %}
+                                <tr>
+                                    <td colspan="2">No recent orders found.</td>
+                                </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+ {% endblock content %}

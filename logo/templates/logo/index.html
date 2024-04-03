@@ -1,0 +1,53 @@
+{% extends 'logo/base.html' %}
+
+
+{% block content %}
+{% include 'logo/includes/alerts.html' %}
+<!-- Main content -->
+<div class="container mt-4">
+  <div id="carouselExampleControls"class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      {% for carousel_description in carousel_descriptions %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <img src="{{ carousel_description.carousel.carousel.url }}" class="d-block w-100" alt="..."/>
+        <div class="carousel-caption d-md-block">
+          <h5>{{ carousel_description.header }}</h5>
+          <p>{{ carousel_description.paragraph }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+      <!-- <span class="carousel-control-prev-icon" aria-hidden="true"></span> -->
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+      <!-- <span class="carousel-control-next-icon" aria-hidden="true"></span> -->
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+   <!-- Welcome Card -->
+   <div class="row mt-4">
+    <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+        <div class="card border-2 rounded">
+            <div class="card-body">
+                <h1 class="card-title display-4 fw-bold mb-4 text-center">Welcome To ShiShiCakes</h1>
+                <p class="card-text lead fs-5 mb-4">Indulge your taste buds with our heavenly creations</p>
+                <p class="card-text lead fs-5 mb-4">Each bite tells a story of passion and dedication</p>
+                <p class="card-text lead fs-5 mb-4">Explore our collection and treat yourself to something special</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Explore Store Button -->
+<div class="row mt-4">
+    <div class="col-md-8 mb-4 offset-md-2 col-lg-6 offset-lg-3">
+        <div class="text-center">
+            <a href="{% url 'store:store' %}" class="btn btn-lg btn-outline-primary">Explore Our Store</a>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock content %} 

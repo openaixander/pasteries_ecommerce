@@ -1,0 +1,30 @@
+# first, we need to get the id of the product based on the id.
+# after that, i think we check if the request.method is a post request.
+
+if the request is a post request, meaning a user is trying to add some product to the cartitem:
+        then we need to get the  cart_id of that user and the the product and cart so that it can be in the cart item.
+           Once the cart_id and the product are filtered, then whenever the user presses on the add_to_cart button,
+           it should redirect them to the cart.html together with the product associated with it sessionID
+           add the quantity of the product in the cart item
+           
+           
+           
+            if it does:
+                we loop through the cart item, then append the id to the id list. After that,
+                if what the user submits is already in the cart, then it should increase its quantity instead of creating a new cart item
+                then just add the quantity of that item in the cart
+            else:
+                it should create a new cart item and actually put it in the cart.
+                it should redirect the user to the cart.html whenever it is added
+
+
+
+
+        we check, if that item a user wants to add already exist in the cartitem:
+
+
+
+
+Here is for the cart function:
+    First, we just need to get the cartID of that user and the items it contains with it. Then we assign it to
+    cart_items, which we will loop through. Then increase the quantity and the total. Then we pass it to context dictionary

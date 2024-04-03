@@ -1,0 +1,10 @@
+Well, first:
+    We need to create a registration form which user can actually sign up.
+    It consist of the name, phone number, email etc.
+
+
+If the user signs in, then user need to activate their account for them to sign in. 
+After making sure they activate their account, then it should take them to the login page with telling them that thier account has been activated
+
+
+So we need to assign the cart item whenever the user is about to place an order.
