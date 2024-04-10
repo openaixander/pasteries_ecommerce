@@ -190,7 +190,7 @@ LOGIN_URL = 'accounts:login'
 
 SESSION_EXPIRE_SECONDS = 120  # 1 hour
 SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
-#SESSION_TIMEOUT_REDIRECT = 'accounts/login.html'
+SESSION_TIMEOUT_REDIRECT = '../accounts/templates/accounts/login.html'
 
 
 # EMAIL VERIFICATION
