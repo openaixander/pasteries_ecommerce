@@ -55,8 +55,8 @@ border-radius: 5px;
 <!-- Main content -->
 <div class="container mt-4">
     <form action="{% url 'carts:add_cart' single_product.id %}" method="POST">
-        <a href="{% url 'store:store' %}" class="btn d-sm-block d-lg-none btn-outline-secondary mb-1 mt-1">Back</a>
-        <hr class="d-sm-block d-lg-none">
+<!--         <a href="{% url 'store:store' %}" class="btn d-sm-block d-lg-none btn-outline-secondary mb-1 mt-1">Back</a>
+        <hr class="d-sm-block d-lg-none"> -->
         {% csrf_token %}
     <div class="row">
 
