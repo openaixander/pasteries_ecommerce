@@ -85,13 +85,13 @@
         <!-- Product Cards -->
         <div class="col-md-9">
             {% if query %}
-            <a href="{% url 'store:store' %}" class="btn d-sm-block d-lg-none btn-outline-secondary mb-3 mt-3">Back</a>
-            <hr>
+<!--             <a href="{% url 'store:store' %}" class="btn d-sm-block d-lg-none btn-outline-secondary mb-3 mt-3">Back</a>
+            <hr> -->
             <h1>Search Results</h1>
             <div class="mt-2 mb-2"> <b>{{ product_count }}</b> Item(s) In Inventory</div>
             {% else %}
-            <a href="{% url 'logo:index' %}" class="btn d-sm-block d-lg-none btn-outline-secondary mt-3">Back</a>
-            <hr class="d-lg-none">
+<!--             <a href="{% url 'logo:index' %}" class="btn d-sm-block d-lg-none btn-outline-secondary mt-3">Back</a>
+            <hr class="d-lg-none"> -->
                 <h1>Featured Products</h1>
                 <div class="mt-2 mb-2"> <b>{{ product_count }}</b> Item(s) In Inventory</div>
             {% endif %}
