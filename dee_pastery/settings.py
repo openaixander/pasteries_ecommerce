@@ -27,13 +27,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY ='django-insecure-)vq*&$7gb89%c19d9ne9mzfvc16-=4hgn$@+70o4$(r1o0!jn#'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-
-ALLOWED_HOSTS = ['shishicakes.onrender.com', 'localhost']
+ 
+ALLOWED_HOSTS = ['.onrender.com', 'localhost']
 
 
 # Application definition
@@ -47,9 +47,9 @@ INSTALLED_APPS = [
     'orders',
     # 'main',
     # admin panel
-    # 'jazzmin',
-    # 'cloudinary',
-    # 'paystack',
+    'jazzmin',
+    'cloudinary',
+    'paystack',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -196,12 +196,12 @@ SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
 # EMAIL VERIFICATION
 EMAIL_HOST='smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER ='openaixander@gmail.com'
-EMAIL_HOST_PASSWORD ='fagmflcjgqmnguyr'
+EMAIL_HOST_USER =config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD =config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 
-PAYSTACK_SECRET_KEY ='sk_test_458c2d8fc7b1cc00a5bbe38b0e7627baee508741'
-PAYSTACK_PUBLIC_KEY ='pk_test_e77980dcd85f670b46e2e5baf1e72a7cf63c2ab1'
+PAYSTACK_SECRET_KEY =config('PAYSTACK_SECRET_KEY')
+PAYSTACK_PUBLIC_KEY =config('PAYSTACK_PUBLIC_KEY')
 
 SITE_TITLE = "Shishicakes Admin"
 
@@ -216,9 +216,15 @@ JAZZMIN_SETTINGS = {
 }
 
 
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': config('CLOUD_NAME'),
+    'CLOUD_API_KEY': config('API_KEY'),
+    'CLOUD_API_SECRET': config('API_SECRET')
+}
+
 cloudinary.config(
-    cloud_name ='ddbboagvh',
-    api_key ='124148839164725',
-    api_secret ='wc582dF-Tkj2311kOM_8UAQphsw'
+    cloud_name =CLOUDINARY_STORAGE['CLOUD_NAME'],
+    api_key =CLOUDINARY_STORAGE['CLOUD_API_KEY'],
+    api_secret = CLOUDINARY_STORAGE['CLOUD_API_SECRET']
 )
 
